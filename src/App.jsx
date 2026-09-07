@@ -4,6 +4,13 @@ import ProtectedRoute from './context/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import LogWash from './pages/LogWash';
+import Employees from './pages/Employees';
+import Services from './pages/Services';
+import History from './pages/History';
+import Customers from './pages/Customers';
+import CustomerDetail from './pages/CustomerDetail';
+import LoyaltyRules from './pages/LoyaltyRules';
+import Rewards from './pages/Rewards';
 
 function App() {
   return (
@@ -11,11 +18,60 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/rewards" element={<Rewards />} />
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute adminOnly>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employees"
+            element={
+              <ProtectedRoute adminOnly>
+                <Employees />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/services"
+            element={
+              <ProtectedRoute adminOnly>
+                <Services />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <ProtectedRoute adminOnly>
+                <History />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/customers"
+            element={
+              <ProtectedRoute adminOnly>
+                <Customers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/customers/:id"
+            element={
+              <ProtectedRoute adminOnly>
+                <CustomerDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/loyalty-rules"
+            element={
+              <ProtectedRoute adminOnly>
+                <LoyaltyRules />
               </ProtectedRoute>
             }
           />

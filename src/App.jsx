@@ -11,6 +11,7 @@ import Customers from './pages/Customers';
 import CustomerDetail from './pages/CustomerDetail';
 import LoyaltyRules from './pages/LoyaltyRules';
 import Rewards from './pages/Rewards';
+import Attendants from './pages/Attendants';
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
             element={
               <ProtectedRoute adminOnly>
                 <Employees />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/attendants"
+            element={
+              <ProtectedRoute adminOnly>
+                <Attendants />
               </ProtectedRoute>
             }
           />

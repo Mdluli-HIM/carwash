@@ -42,6 +42,7 @@ export default function Dashboard() {
         <NavCard to="/history" icon={<Clock size={18} />} title="Transaction history" subtitle="Every wash, who did it, and when" />
         <NavCard to="/customers" icon={<UserRound size={18} />} title="Customers" subtitle="Browse and search your customer base" />
         <NavCard to="/loyalty-rules" icon={<Gift size={18} />} title="Loyalty rules" subtitle="Set up discounts for repeat customers" />
+        <NavCard to="/attendants" icon={<UserRound size={18} />} title="Attendants" subtitle="Add or manage staff names" />
 
         <div className="grid grid-cols-2 gap-3 mb-4">
           <StatCard label="Washes today" value={summary.washes_today} />

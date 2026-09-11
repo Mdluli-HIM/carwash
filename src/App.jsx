@@ -4,6 +4,7 @@ import ProtectedRoute from './context/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import LogWash from './pages/LogWash';
+import ActiveWashes from './pages/ActiveWashes';
 import Employees from './pages/Employees';
 import Services from './pages/Services';
 import History from './pages/History';
@@ -89,6 +90,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <LogWash />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/active-washes"
+            element={
+              <ProtectedRoute>
+                <ActiveWashes />
               </ProtectedRoute>
             }
           />

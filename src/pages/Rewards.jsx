@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import api from '../api/client';
-import { Phone, Gift, PartyPopper, Search } from 'lucide-react';
+import { Phone, Gift, PartyPopper, Search, Clock, Droplets, CheckCircle2 } from 'lucide-react';
 
 export default function Rewards() {
   const [phone, setPhone] = useState('');
@@ -30,6 +30,13 @@ export default function Rewards() {
       setLoading(false);
     }
   }
+
+  const statusSteps = ['pending', 'washing', 'done'];
+  const statusLabels = {
+    pending: 'Checked in',
+    washing: 'Being washed',
+    done: 'Ready for pickup',
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10">
@@ -77,6 +84,56 @@ export default function Rewards() {
                 You've washed with us {data.customer.total_visits} time{data.customer.total_visits === 1 ? '' : 's'}
               </p>
             </div>
+
+            {data.active_wash && (
+              <div className="bg-white rounded-2xl shadow-sm p-4 mb-4">
+                <p className="text-sm font-semibold mb-3" style={{ color: 'var(--color-ink)' }}>
+                  Your car right now
+                </p>
+                <p className="text-xs text-gray-500 mb-3">
+                  {data.active_wash.vehicle_make} {data.active_wash.vehicle_model}
+                  {data.active_wash.vehicle_plate ? ' · ' + data.active_wash.vehicle_plate : ''}
+                  {' · '}{data.active_wash.service_name}
+                </p>
+                <div className="flex items-center justify-between">
+                  {statusSteps.map((step, idx) => {
+                    const currentIdx = statusSteps.indexOf(data.active_wash.status);
+                    const isActive = idx === currentIdx;
+                  const isPast = idx < currentIdx;
+                    const isDone = isActive || isPast;
+                    const Icon = step === 'pending' ? Clock : step === 'washing' ? Droplets : CheckCircle2;
+                    return (
+                      <div key={step} className="flex-1 flex flex-col items-center">
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center mb-1.5"
+                          style={{
+                            backgroundColor: isDone ? 'var(--color-primary)' : 'var(--color-surface)',
+                            color: isDone ? 'white' : '#9CA3AF',
+                          }}
+                        >
+                          <Icon size={16} />
+                        </div>
+                        <p
+                          className="text-[10px] text-center font-medium"
+                          style={{ color: isDone ? 'var(--color-ink)' : '#9CA3AF' }}
+                        >
+                          {statusLabels[step]}
+                        </p>
+                        {idx < statusSteps.length - 1 && (
+                          <div
+                            className="h-0.5 w-full mt-[-24px] mb-[24px]"
+                            style={{
+                              backgroundColor: isPast ? 'var(--color-primary)' : '#E5E7EB',
+                              marginLeft: '50%',
+                            }}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             <div className="space-y-3">
               {data.progress.map((p, i) => (
@@ -137,7 +194,7 @@ export default function Rewards() {
 
             {data.progress.length === 0 && (
               <p className="text-sm text-gray-500 text-center py-4">No active rewards right now — check back soon!</p>
-          )}
+            )}
           </>
         )}
       </div>
